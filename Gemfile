@@ -13,3 +13,4 @@ gemspec
 # To use a debugger
 # gem 'byebug', group: [:development, :test]
 
+gem "fancyhands-ruby", require: "fancyhands", github: "togglepro/fancyhands-ruby", branch: "tidy-up"
