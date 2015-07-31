@@ -7,6 +7,13 @@ require 'rspec/rails'
 require "dotenv"
 Dotenv.load
 
+Fancyengine.key = ENV["KEY"]
+Fancyengine.secret = ENV["SECRET"]
+
+require "factory_girl_rails"
+
+require "test_after_commit"
+
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
 ActiveRecord::Migration.maintain_test_schema!
