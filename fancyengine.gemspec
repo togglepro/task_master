@@ -9,9 +9,9 @@ Gem::Specification.new do |s|
   s.version     = Fancyengine::VERSION
   s.authors     = ["Sean Devine"]
   s.email       = ["barelyknown@icloud.com"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of Fancyengine."
-  s.description = "TODO: Description of Fancyengine."
+  s.homepage    = "http://www.github.com/togglepro/fancyengine"
+  s.summary     = "Engine that handles integration with FancyHands API."
+  s.description = s.summary
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
