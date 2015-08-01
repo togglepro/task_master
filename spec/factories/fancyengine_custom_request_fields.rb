@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :fancyengine_custom_request_field, :class => "Fancyengine::CustomRequestField" do
     type "text"
-    label "Sounds lik?"
+    label "Sounds like?"
     description "In other words, were they nice?"
     field_name "person_sounds_like"
     required false

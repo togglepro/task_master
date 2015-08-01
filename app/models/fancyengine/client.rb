@@ -14,5 +14,14 @@ module Fancyengine
       request.get("echo", {}) == {}
     end
 
+    def create_custom_request(data)
+      request.post("request/custom", data)
+    end
+
+    def cancel_custom_request(key)
+      response = request.post("request/custom/cancel", { key: key })
+      response["status"] == true
+    end
+
   end
 end

@@ -11,20 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150731173757) do
+ActiveRecord::Schema.define(version: 20150801043337) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "fancyengine_custom_requests", force: :cascade do |t|
     t.string   "title"
-    t.text     "description",     null: false
-    t.text     "custom_fields",   null: false
-    t.decimal  "bid",             null: false
-    t.datetime "expiration_date", null: false
+    t.text     "description",                          null: false
+    t.text     "custom_fields",                        null: false
+    t.decimal  "bid",                                  null: false
+    t.datetime "expiration_date",                      null: false
     t.string   "key"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.text     "responses",             default: "[]"
+    t.integer  "numeric_status"
+    t.datetime "fancyhands_created_at"
+    t.datetime "fancyhands_updated_at"
   end
 
 end

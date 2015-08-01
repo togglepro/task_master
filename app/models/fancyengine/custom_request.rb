@@ -1,22 +1,71 @@
 module Fancyengine
   class CustomRequest < ActiveRecord::Base
+    STATUSES = {
+      1 => "NEW",
+      5 => "OPEN",
+      7 => "AWAITING_RESPONSE",
+      20 => "CLOSED",
+      21 => "EXPIRED"
+    }
+
     serialize :custom_fields, JSON
+
+    serialize :responses, JSON
 
     after_initialize :_initialize_custom_fields
 
     validates :description, presence: true
 
+    validates :numeric_status, inclusion: { in: STATUSES.keys }, allow_nil: true
+
     validate :_custom_fields_is_not_empty
 
     validate :_custom_fields_are_all_valid
 
-    after_commit :_create_in_fancy_hands
+    before_save :_set_attributes_from_last_response
+
+    after_commit :post_to_fancyhands, on: [:create]
+
+    # Override this method if you'd like to move the post to Fancy Hands
+    # into the background. Redefine #post_to_fancyhands to queue the job
+    # in whatever other way you'd prefer.
+    def post_to_fancyhands
+      post_to_fancyhands_now
+    end
+
+    def post_to_fancyhands_now
+      return if key.present?
+
+      response = Client.new.create_custom_request(_to_fancy_hands_data)
+      self.responses << response
+      save
+    end
 
     def cancel
       return false unless key.present?
 
-      response = Client.new.request.post("request/custom/cancel", { key: key })
-      response["success"] == true
+      Client.new.cancel_custom_request(key)
+    end
+
+    def status
+      return unless numeric_status.present?
+
+      STATUSES[numeric_status]
+    end
+
+    def _set_attributes_from_last_response
+      self.responses = responses.sort_by do |response|
+        DateTime.parse(response["date_updated"])
+      end
+
+      return unless last_response = responses.last
+
+      self.key = last_response["key"] unless key.present?
+      self.numeric_status = last_response["numeric_status"]
+      self.fancyhands_created_at = DateTime.parse(last_response["date_created"]) unless fancyhands_created_at.present?
+      self.fancyhands_updated_at = DateTime.parse(last_response["date_updated"])
+
+      return true
     end
 
     def _initialize_custom_fields
@@ -30,13 +79,14 @@ module Fancyengine
     end
 
     def _custom_fields_are_all_valid
-      _coerced_custom_fields = custom_fields.map { |f| CustomRequestField.new(f.to_hash) }
-      if _coerced_custom_fields.any?(&:invalid?)
-        messages = {}
-        _coerced_custom_fields.each_with_index do |field, index|
-          next if field.valid?
-          messages[index] = field.errors.full_messages
-        end
+      messages = {}
+      custom_fields.map do |f|
+        CustomRequestField.new(f.to_hash)
+      end.each_with_index do |field, index|
+        next if field.valid?
+        messages[index] = field.errors.full_messages
+      end
+      if messages.any?
         errors.add(
           :custom_fields,
           messages.map do |index, full_messages|
@@ -44,12 +94,6 @@ module Fancyengine
           end.join(", ")
         )
       end
-    end
-
-    def _create_in_fancy_hands
-      response = Client.new.request.post("request/custom", _to_fancy_hands_data)
-      self.key = response["key"]
-      update_column :key, self.key
     end
 
     def _to_fancy_hands_data

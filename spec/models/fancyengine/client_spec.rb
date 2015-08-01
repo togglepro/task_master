@@ -11,7 +11,7 @@ RSpec.describe Fancyengine::Client do
       expect{subject}.not_to raise_error
     end
 
-    it "can ping the server" do
+    it "can ping the server", :network do
       expect(subject.ping).to eq true
     end
   end
