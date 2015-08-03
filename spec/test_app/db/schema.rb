@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150803011329) do
+ActiveRecord::Schema.define(version: 20150803134457) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,15 @@ ActiveRecord::Schema.define(version: 20150803011329) do
     t.datetime "fancyhands_created_at"
     t.datetime "fancyhands_updated_at"
     t.text     "answers",               default: "{}"
+    t.integer  "requestor_id"
+    t.string   "requestor_type"
+  end
+
+  add_index "fancyengine_custom_requests", ["requestor_id", "requestor_type"], name: "idx_fcr_ri_rt", using: :btree
+
+  create_table "managers", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

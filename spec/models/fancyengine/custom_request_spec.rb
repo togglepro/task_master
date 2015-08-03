@@ -95,6 +95,14 @@ module Fancyengine
       expect(subject.errors[:numeric_status]).to include "is not included in the list"
     end
 
+    it "has a polymorphic belongs_to relationship with a requestor" do
+      requestor = ::Manager.create
+      subject.requestor = requestor
+      expect(subject.requestor).to eq requestor
+      expect(subject.requestor_id).to eq requestor.id
+      expect(subject.requestor_type).to eq requestor.class.to_s
+    end
+
     it "has a factory that can build a valid instance" do
       @request = FactoryGirl.build(:fancyengine_custom_request)
       expect(@request).to be_valid
@@ -167,7 +175,7 @@ module Fancyengine
     end
 
     # This has been tested against the api, but I went to a stubbed
-    # test for now to keep the test suite quick. 
+    # test for now to keep the test suite quick.
     it "has a method to trigger a callback" do
       @request = FactoryGirl.build(:fancyengine_custom_request, key: "ABCD")
       client = Client.new

@@ -49,6 +49,14 @@ Fancyengine.key = ENV["FANCYHANDS_KEY"]
 Fancyengine.secret = ENV["FANCYHANDS_SECRET"]
 ```
 
+### Usage
+
+Currently, the engine supports the following types of requests:
+
+1. `CustomRequest`: A semi-structured task where you provide a description of the data that you'd like back and a price that you're willing to pay. The assistant will figure out how to best get the work done. You can create a relationship between a custom request and another model by setting the polymorphic `requestor` attribute on the custom request.
+
+The engine provides an endpoint for Fancy Hands webhooks at `wherever-you-mount-the-engine/webhook`. You'll need to add the URL to your Fancy Hands application. When a request is received by the webhook controller it will find the matching request and add the response onto the array of responses for that instance.
+
 ### Credits
 
 The library was originally written by [@barelyknown](http://twitter.com/barelyknown) using the API and Ruby client library from Fancy Hands.

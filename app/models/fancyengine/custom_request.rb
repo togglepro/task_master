@@ -14,6 +14,8 @@ module Fancyengine
 
     serialize :answers, JSON
 
+    belongs_to :requestor, polymorphic: true
+
     after_initialize :_initialize_custom_fields
 
     validates :description, presence: true
