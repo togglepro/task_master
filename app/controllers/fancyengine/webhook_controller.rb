@@ -10,6 +10,9 @@ module Fancyengine
         head :bad_request and return
       end
 
+      # Fancy Hands uses a single URL for all webhooks.
+      # We need to iterate through the request classes to find one
+      # that has the key from the response.
       [CustomRequest].each do |request_class|
         break if request_instance = request_class.find_by(key: response["key"])
       end
