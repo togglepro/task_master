@@ -9,7 +9,6 @@ require "sprockets/railtie"
 # require "rails/test_unit/railtie"
 
 Bundler.require(*Rails.groups)
-require "fancyengine"
 
 module TestApp
   class Application < Rails::Application
