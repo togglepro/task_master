@@ -64,7 +64,9 @@ module Fancyengine
     end
 
     def _set_attributes_from_last_response
-      self.responses = responses.sort_by do |response|
+      self.responses = responses.select do |response|
+        response["date_updated"].present? && response["date_created"].present?
+      end.sort_by do |response|
         DateTime.parse(response["date_updated"])
       end
 
