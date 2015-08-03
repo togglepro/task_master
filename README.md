@@ -19,13 +19,13 @@ Fancyengine was created for three main reasons:
 
 To install and use Fancyengine.
 
-**1. Install the gem**
+**1. Install the gem.**
 ```ruby
 # Gemfile
 gem "fancyengine"
 ```
 
-**2. Mount the engine**
+**2. Mount the engine.**
 ```ruby
 # config/routes.rb
 Rails.application.routes.draw do
@@ -33,10 +33,20 @@ Rails.application.routes.draw do
 end
 ```
 
-**3. Run the engine's migrations**
+**3. Run the engine's migrations.**
 ```bash
 bundle exec rake fancyengine:install:migrations
 bundle exec rake db:migrate
+```
+
+**4. Set your Fancy Hands application API key and secret.**
+
+You'll need to create your application and get its secret and key at [http://www.fancyhands.com/developer](). The instructions below assume that you've saved them in environment variables.
+
+```ruby
+# config/intializers/fancyengine.rb
+Fancyengine.key = ENV["FANCYHANDS_KEY"]
+Fancyengine.secret = ENV["FANCYHANDS_SECRET"]
 ```
 
 ### Credits
