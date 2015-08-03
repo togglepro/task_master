@@ -1,6 +1,23 @@
 module Fancyengine
   RSpec.describe CustomRequest do
 
+    def expect_custom_request_to_post_to_fancyhands(request)
+      response = JSON.parse(File.read(File.expand_path("../../../fixtures/custom_requests/response.json", __FILE__)))
+
+      client = Client.new
+      expect(Client).to receive(:new).twice.and_return(client)
+      expect(client)
+        .to(receive(:create_custom_request))
+        .with(@request._to_fancy_hands_data)
+        .and_return(response)
+      expect(client)
+        .to(receive(:cancel_custom_request))
+        .with(response["key"])
+        .and_return(true)
+
+      response
+    end
+
     before do
       # using a request instance variable so that we can immediately cancel
       # requests that are created in fancy hands
@@ -86,18 +103,7 @@ module Fancyengine
     it "creates the request in fancy hands after commit and sets the key and other attributes" do
       @request = FactoryGirl.build(:fancyengine_custom_request)
 
-      response = JSON.parse(File.read(File.expand_path("../../../fixtures/custom_requests/response.json", __FILE__)))
-
-      client = Client.new
-      expect(Client).to receive(:new).twice.and_return(client)
-      expect(client)
-        .to(receive(:create_custom_request))
-        .with(@request._to_fancy_hands_data)
-        .and_return(response)
-      expect(client)
-        .to(receive(:cancel_custom_request))
-        .with(response["key"])
-        .and_return(true)
+      response = expect_custom_request_to_post_to_fancyhands(@request)
 
       @request.save!
       @request.reload
@@ -146,6 +152,18 @@ module Fancyengine
       now = Time.now
       subject.fancyhands_updated_at = now
       expect(subject.fancyhands_updated_at).to eq now
+    end
+
+    it "has an answers attribute that is an empty hash after initialization" do
+      expect(subject.answers).to eq Hash.new
+    end
+
+    it "updates the answers to nil when it saves" do
+      @request = FactoryGirl.build(:fancyengine_custom_request)
+      expect_custom_request_to_post_to_fancyhands(@request)
+      @request.save!
+      expected_answers = { "person_sounds_like" => nil }
+      expect(@request.answers).to eq expected_answers
     end
 
     # cancel the requests if they're created since they don't have a test system

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150801043337) do
+ActiveRecord::Schema.define(version: 20150803011329) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20150801043337) do
     t.integer  "numeric_status"
     t.datetime "fancyhands_created_at"
     t.datetime "fancyhands_updated_at"
+    t.text     "answers",               default: "{}"
   end
 
 end

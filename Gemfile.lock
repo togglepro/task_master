@@ -145,7 +145,7 @@ DEPENDENCIES
   fancyengine!
   fancyhands-ruby!
   pg
-  rspec-rails (~> 3.3)
+  rspec-rails (>= 3.3.3)
   spring (~> 1.3)
   test_after_commit
 

@@ -12,6 +12,8 @@ module Fancyengine
 
     serialize :responses, JSON
 
+    serialize :answers, JSON
+
     after_initialize :_initialize_custom_fields
 
     validates :description, presence: true
@@ -64,6 +66,9 @@ module Fancyengine
       self.numeric_status = last_response["numeric_status"]
       self.fancyhands_created_at = DateTime.parse(last_response["date_created"]) unless fancyhands_created_at.present?
       self.fancyhands_updated_at = DateTime.parse(last_response["date_updated"])
+      last_response["custom_fields"].each do |custom_field|
+        self.answers[custom_field["field_name"]] = custom_field["answer"]
+      end
 
       return true
     end
