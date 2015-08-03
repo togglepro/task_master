@@ -36,6 +36,7 @@ end
 **3. Run the engine's migrations**
 ```bash
 bundle exec rake fancyengine:install:migrations
+bundle exec rake db:migrate
 ```
 
 ### Credits
