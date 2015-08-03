@@ -21,6 +21,24 @@ module Fancyengine
         custom_request.reload
         expect(custom_request.responses.last).to eq fancyhands_response
       end
+
+      it "has a 400 status if the request body doesn't appear to be a fancy hands request" do
+        request.env["HTTP_ACCEPT"] = "application/json"
+        request.env["RAW_POST_DATA"] = { foo: "bar" }.to_json
+
+        post :create
+
+        expect(response.status).to eq 400
+      end
+
+      it "has a 400 status if the request body can't be parsed as json" do
+        request.env["HTTP_ACCEPT"] = "application/json"
+        request.env["RAW_POST_DATA"] = "this is not json"
+
+        post :create
+
+        expect(response.status).to eq 400
+      end
     end
   end
 end
