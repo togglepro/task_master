@@ -23,5 +23,10 @@ module Fancyengine
       response["status"] == true
     end
 
+    def trigger_callback(key)
+      response = request.post("callback", { key: key })
+      response["status"] == "ok"
+    end
+
   end
 end

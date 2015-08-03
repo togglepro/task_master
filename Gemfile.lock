@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/togglepro/fancyhands-ruby.git
-  revision: b00cc6ba0d964a8025433c31d46e5273d56853b6
+  revision: 8a5a556f5c4997a884ddebdd3de8420b54d06fa1
   branch: tidy-up
   specs:
     fancyhands-ruby (1.0.0)

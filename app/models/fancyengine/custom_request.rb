@@ -49,6 +49,12 @@ module Fancyengine
       Client.new.cancel_custom_request(key)
     end
 
+    def trigger_callback
+      return false unless key.present?
+
+      Client.new.trigger_callback(key)
+    end
+
     def status
       return unless numeric_status.present?
 

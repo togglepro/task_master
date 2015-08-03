@@ -166,6 +166,18 @@ module Fancyengine
       expect(@request.answers).to eq expected_answers
     end
 
+    # This has been tested against the api, but I went to a stubbed
+    # test for now to keep the test suite quick. 
+    it "has a method to trigger a callback" do
+      @request = FactoryGirl.build(:fancyengine_custom_request, key: "ABCD")
+      client = Client.new
+      fancyhands_ruby_client_request = double(FancyHands::Request)
+      expect(Client).to receive(:new).and_return(client)
+      expect(client).to receive(:request).and_return(fancyhands_ruby_client_request)
+      expect(fancyhands_ruby_client_request).to receive(:post).with("callback", { key: @request.key}).and_return({"status" => "ok"})
+      expect(@request.trigger_callback).to eq true
+    end
+
     # cancel the requests if they're created since they don't have a test system
     after do
       if @request.persisted? && @request.key.present?
