@@ -97,7 +97,8 @@ module Fancyengine
       end
 
       self.answers ||= {}
-      last_response["custom_fields"].each do |custom_field|
+
+      Array(last_response["custom_fields"]).each do |custom_field|
         self.answers[custom_field["field_name"]] = custom_field["answer"]
       end
 
