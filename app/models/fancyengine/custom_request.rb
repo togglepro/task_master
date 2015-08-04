@@ -64,20 +64,38 @@ module Fancyengine
     end
 
     def _set_attributes_from_last_response
-      if responses.size > 1
-        self.responses = responses.select do |response|
-          response["date_updated"].present? && response["date_created"].present?
-        end.sort_by do |response|
-          DateTime.parse(response["date_updated"])
-        end
+      sorted_responses = []
+      # add the responses that don't have date_updated present to the beginning
+      # sorted responses
+
+      sorted_responses += responses.select do |response|
+        response["date_updated"].blank?
       end
+
+      sorted_responses += responses.select do |response|
+        response["date_updated"].present?
+      end.sort_by do |response|
+        DateTime.parse(response["date_updated"])
+      end
+
+      self.responses = sorted_responses
 
       return unless last_response = responses.last
 
       self.key = last_response["key"] unless key.present?
-      self.numeric_status = last_response["numeric_status"]
-      self.fancyhands_created_at = DateTime.parse(last_response["date_created"]) unless fancyhands_created_at.present?
-      self.fancyhands_updated_at = DateTime.parse(last_response["date_updated"])
+
+      if last_response["numeric_status"].present?
+        self.numeric_status = Integer(last_response["numeric_status"])
+      end
+
+      if last_response["date_created"].present? && !fancyhands_created_at.present?
+        self.fancyhands_created_at = DateTime.parse(last_response["date_created"])
+      end
+
+      if last_response["date_updated"].present?
+        self.fancyhands_updated_at = DateTime.parse(last_response["date_updated"])
+      end
+
       last_response["custom_fields"].each do |custom_field|
         self.answers[custom_field["field_name"]] = custom_field["answer"]
       end
