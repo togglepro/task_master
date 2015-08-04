@@ -37,6 +37,12 @@ module Fancyengine
       expect(subject.errors[:label]).to include "is too long (maximum is 30 characters)"
     end
 
+    it "validates that the description is 300 or fewer characters" do
+      subject.description = "-" * 301
+      subject.valid?
+      expect(subject.errors[:description]).to include "is too long (maximum is 300 characters)"
+    end
+
     it "has a description attribute" do
       description = "In other words, were they nice?"
       subject.description = description

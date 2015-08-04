@@ -4,7 +4,7 @@ FactoryGirl.define do
     description "This request will be cancelled shortly. Please do not work on it."
     custom_fields [FactoryGirl.build(:fancyengine_custom_request_field)]
     bid "0.01"
-    expiration_date Time.now + 5.seconds
+    expiration_date Time.now + 1.minute
     key nil
   end
 end

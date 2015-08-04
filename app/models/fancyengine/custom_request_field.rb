@@ -23,6 +23,8 @@ module Fancyengine
 
     validates :label, length: { maximum: 30 }
 
+    validates :description, length: { maximum: 300 }
+
     def _initialize_required
       self.required = false if self.required.nil?
     end
