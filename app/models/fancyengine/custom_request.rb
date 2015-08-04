@@ -14,6 +14,10 @@ module Fancyengine
 
     serialize :answers, JSON
 
+    serialize :messages, JSON
+
+    serialize :phone_calls, JSON
+
     belongs_to :requestor, polymorphic: true
 
     after_initialize :_initialize_custom_fields
@@ -104,6 +108,10 @@ module Fancyengine
       Array(last_response["custom_fields"]).each do |custom_field|
         self.answers[custom_field["field_name"]] = custom_field["answer"]
       end
+
+      self.messages = Array(last_response["messages"])
+
+      self.phone_calls = Array(last_response["phone_calls"])
 
       return true
     end

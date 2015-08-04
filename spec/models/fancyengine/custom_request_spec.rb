@@ -81,6 +81,14 @@ module Fancyengine
       expect(@request.responses).to eq []
     end
 
+    it "has a messages attribute that is initialized as an empty array" do
+      expect(@request.messages).to eq []
+    end
+
+    it "has a phone_calls attribute that is initialized as an empty array" do
+      expect(@request.phone_calls).to eq []
+    end
+
     it "has a numeric_status attribute" do
       numeric_status = 1
       subject.numeric_status = numeric_status
@@ -118,6 +126,8 @@ module Fancyengine
       expect(@request.numeric_status).to eq 1
       expect(@request.fancyhands_created_at).to eq DateTime.parse("2015-08-01T02:43:30.943430")
       expect(@request.fancyhands_updated_at).to eq DateTime.parse("2015-08-01T02:43:31.010720")
+      expect(@request.messages).to eq response["messages"]
+      expect(@request.phone_calls).to eq response["phone_calls"]
       expect(@request.responses.last).to eq response
     end
 

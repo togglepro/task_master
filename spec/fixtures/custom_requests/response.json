@@ -19,10 +19,27 @@
   "api_bid": 0.01,
   "key": "ahBzfmZhbmN5aGFuZHMtaHJkcikLEgZGSFVzZXIYgICgx_mY9goMCxIJRkhSZXF1ZXN0GICAgIC5qZkKDA",
   "phone_calls": [
-
+    {
+      "status": 20,
+      "direction": 1,
+      "date_completed": "Tue, 04 Aug 2015 16:07:11 +0000",
+      "status_name": "Completed",
+      "notes": null,
+      "number_to": "8445227266",
+      "number": "8445227266",
+      "number_from": "9177758497",
+      "duration": 70,
+      "date_created": "Tue, 04 Aug 2015 16:05:56 +0000",
+      "call_duration": 70
+    }
   ],
   "messages": [
-
+    {
+      "content": "Email: \n\nEquipment Types: \n\nLanes: \n\nNotes: \n\n",
+      "date_created": "2015-08-04T16:07:22.224430",
+      "local_date_created": "2015-08-04T12:07:22.224430-03:00",
+      "content_type": "text/plain"
+    }
   ],
   "date_created": "2015-08-01T02:43:30.943430"
 }
