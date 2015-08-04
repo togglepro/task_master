@@ -5,7 +5,7 @@ class AddMessagesToFancyengineCustomRequests < ActiveRecord::Migration
 
     reversible do |dir|
       dir.up do
-        Fancyengine.reset_column_information
+        Fancyengine::CustomRequest.reset_column_information
         Fancyengine::CustomRequest.find_each do |custom_request|
           custom_request.save!
         end
