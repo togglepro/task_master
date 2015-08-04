@@ -82,7 +82,10 @@ module Fancyengine
 
       return unless last_response = responses.last
 
-      self.key = last_response["key"] unless key.present?
+      if key.blank?
+        raise StandardError, "The last response had a blank key. #{last_response.inspect}" if last_response["key"].blank?
+        self.key = last_response["key"]
+      end
 
       if last_response["numeric_status"].present?
         self.numeric_status = Integer(last_response["numeric_status"])

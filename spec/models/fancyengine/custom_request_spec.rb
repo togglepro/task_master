@@ -1,16 +1,14 @@
 module Fancyengine
   RSpec.describe CustomRequest do
 
-    def expect_custom_request_to_post_to_fancyhands(request)
-      response = JSON.parse(File.read(File.expand_path("../../../fixtures/custom_requests/response.json", __FILE__)))
-
+    def expect_custom_request_to_post_to_fancyhands(request, response = JSON.parse(File.read(File.expand_path("../../../fixtures/custom_requests/response.json", __FILE__))))
       client = Client.new
-      expect(Client).to receive(:new).twice.and_return(client)
+      expect(Client).to receive(:new).at_least(:once).and_return(client)
       expect(client)
         .to(receive(:create_custom_request))
         .with(@request._to_fancy_hands_data)
         .and_return(response)
-      expect(client)
+      allow(client)
         .to(receive(:cancel_custom_request))
         .with(response["key"])
         .and_return(true)
@@ -121,6 +119,14 @@ module Fancyengine
       expect(@request.fancyhands_created_at).to eq DateTime.parse("2015-08-01T02:43:30.943430")
       expect(@request.fancyhands_updated_at).to eq DateTime.parse("2015-08-01T02:43:31.010720")
       expect(@request.responses.last).to eq response
+    end
+
+    it "raises a standard error if the last response key is blank" do
+      @request = FactoryGirl.build(:fancyengine_custom_request)
+
+      response = expect_custom_request_to_post_to_fancyhands(@request, { key: "" })
+
+      expect{@request.save!}.to raise_error(StandardError, /The last response had a blank key\./)
     end
 
     it "puts the responses in order before save" do
