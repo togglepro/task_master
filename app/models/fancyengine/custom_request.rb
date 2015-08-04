@@ -96,6 +96,7 @@ module Fancyengine
         self.fancyhands_updated_at = DateTime.parse(last_response["date_updated"])
       end
 
+      self.answers ||= {}
       last_response["custom_fields"].each do |custom_field|
         self.answers[custom_field["field_name"]] = custom_field["answer"]
       end
