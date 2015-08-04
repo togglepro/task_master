@@ -109,6 +109,10 @@ module Fancyengine
       expect(subject.requestor_type).to eq requestor.class.to_s
     end
 
+    it "has a closed_without_answers flag" do
+      expect(subject.closed_without_answers).to eq false
+    end
+
     it "has a factory that can build a valid instance" do
       @request = FactoryGirl.build(:fancyengine_custom_request)
       expect(@request).to be_valid
@@ -129,6 +133,15 @@ module Fancyengine
       expect(@request.messages).to eq response["messages"]
       expect(@request.phone_calls).to eq response["phone_calls"]
       expect(@request.responses.last).to eq response
+    end
+
+    it "updates the closed_without_answers flag correctly" do
+      @request = FactoryGirl.build(:fancyengine_custom_request)
+      response = expect_custom_request_to_post_to_fancyhands(@request, { "numeric_status" => 20, "custom_fields" => [{ "field_name" => "example_field", "answer" => "" }], "key" => "ABCD" })
+
+      @request.save!
+      @request.reload
+      expect(@request.closed_without_answers).to eq true
     end
 
     it "raises a standard error if the last response key is blank" do

@@ -32,6 +32,8 @@ module Fancyengine
 
     before_save :_set_attributes_from_last_response
 
+    before_save :_set_closed_without_answers
+
     after_commit :post_to_fancyhands, on: [:create]
 
     # Override this method if you'd like to move the post to Fancy Hands
@@ -114,6 +116,14 @@ module Fancyengine
       self.phone_calls = Array(last_response["phone_calls"])
 
       return true
+    end
+
+    def _set_closed_without_answers
+      return unless numeric_status == 20
+      
+      if answers.values.all?(&:blank?)
+        self.closed_without_answers = true
+      end
     end
 
     def _initialize_custom_fields
