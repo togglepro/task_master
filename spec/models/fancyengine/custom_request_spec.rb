@@ -127,9 +127,10 @@ module Fancyengine
       @request.reload
       expect(@request).to be_persisted
       expect(@request.key).to eq "ahBzfmZhbmN5aGFuZHMtaHJkcikLEgZGSFVzZXIYgICgx_mY9goMCxIJRkhSZXF1ZXN0GICAgIC5qZkKDA"
-      expect(@request.numeric_status).to eq 1
+      expect(@request.numeric_status).to eq 20
       expect(@request.fancyhands_created_at).to eq DateTime.parse("2015-08-01T02:43:30.943430")
-      expect(@request.fancyhands_updated_at).to eq DateTime.parse("2015-08-01T02:43:31.010720")
+      expect(@request.fancyhands_updated_at).to eq DateTime.parse("2015-08-01T02:50:31.010720")
+      expect(@request.fancyhands_closed_at).to eq DateTime.parse("2015-08-01T02:50:31.010720")
       expect(@request.messages).to eq response["messages"]
       expect(@request.phone_calls).to eq response["phone_calls"]
       expect(@request.phone_call_seconds).to eq 70
@@ -204,7 +205,7 @@ module Fancyengine
       @request = FactoryGirl.build(:fancyengine_custom_request)
       expect_custom_request_to_post_to_fancyhands(@request)
       @request.save!
-      expected_answers = { "person_sounds_like" => nil }
+      expected_answers = { "person_sounds_like" => "walrus" }
       expect(@request.answers).to eq expected_answers
     end
 

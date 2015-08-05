@@ -1,6 +1,6 @@
 {
   "user_key": "ahBzfmZhbmN5aGFuZHMtaHJkchMLEgZGSFVzZXIYgICgx_mY9goM",
-  "numeric_status": 1,
+  "numeric_status": 20,
   "custom_fields": [
     {
       "description": "In other words, were they nice?",
@@ -8,14 +8,15 @@
       "required": false,
       "label": "Sounds lik?",
       "field_name": "person_sounds_like",
-      "order": 1
+      "order": 1,
+      "answer": "walrus"
     }
   ],
   "uniq": "ee5cda8",
   "title": "TESTING: This is not a real request.",
   "content": "This request will be cancelled shortly. Please do not work on it.",
-  "date_updated": "2015-08-01T02:43:31.010720",
-  "status": "In Progress",
+  "date_updated": "2015-08-01T02:50:31.010720",
+  "status": "Closed",
   "api_bid": 0.01,
   "key": "ahBzfmZhbmN5aGFuZHMtaHJkcikLEgZGSFVzZXIYgICgx_mY9goMCxIJRkhSZXF1ZXN0GICAgIC5qZkKDA",
   "phone_calls": [

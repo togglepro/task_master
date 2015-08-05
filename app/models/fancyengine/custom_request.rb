@@ -105,6 +105,10 @@ module Fancyengine
         self.fancyhands_updated_at = DateTime.parse(last_response["date_updated"])
       end
 
+      if self.numeric_status == 20
+        self.fancyhands_closed_at = fancyhands_updated_at
+      end
+
       self.answers ||= {}
 
       Array(last_response["custom_fields"]).each do |custom_field|
