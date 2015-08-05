@@ -120,10 +120,11 @@ module Fancyengine
 
     def _set_closed_without_answers
       return unless numeric_status == 20
-      
-      if answers.values.all?(&:blank?)
-        self.closed_without_answers = true
-      end
+
+      self.closed_without_answers = answers.values.all?(&:blank?)
+
+      # don't stop the save process
+      return true
     end
 
     def _initialize_custom_fields
