@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150804202905) do
+ActiveRecord::Schema.define(version: 20150805023043) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 20150804202905) do
     t.text     "messages",               default: "[]"
     t.text     "phone_calls",            default: "[]"
     t.boolean  "closed_without_answers", default: false
+    t.integer  "phone_call_seconds",     default: 0
   end
 
   add_index "fancyengine_custom_requests", ["requestor_id", "requestor_type"], name: "idx_fcr_ri_rt", using: :btree

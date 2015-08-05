@@ -132,6 +132,7 @@ module Fancyengine
       expect(@request.fancyhands_updated_at).to eq DateTime.parse("2015-08-01T02:43:31.010720")
       expect(@request.messages).to eq response["messages"]
       expect(@request.phone_calls).to eq response["phone_calls"]
+      expect(@request.phone_call_seconds).to eq 70
       expect(@request.responses.last).to eq response
     end
 
@@ -193,6 +194,10 @@ module Fancyengine
 
     it "has an answers attribute that is an empty hash after initialization" do
       expect(subject.answers).to eq Hash.new
+    end
+
+    it "has a phone_call_seconds attribute that defaults to zero" do
+      expect(subject.phone_call_seconds).to eq 0
     end
 
     it "updates the answers to nil when it saves" do

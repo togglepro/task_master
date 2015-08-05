@@ -115,6 +115,10 @@ module Fancyengine
 
       self.phone_calls = Array(last_response["phone_calls"])
 
+      Array(last_response["phone_calls"]).each do |phone_call|
+        self.phone_call_seconds += Integer(phone_call["duration"])
+      end
+
       return true
     end
 
