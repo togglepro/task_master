@@ -61,6 +61,12 @@ module Fancyengine
       expect(subject.field_name).to eq field_name
     end
 
+    it "validates that the field_name is 30 or fewer characters" do
+      subject.field_name = "-" * 31
+      subject.valid?
+      expect(subject.errors[:field_name]).not_to be_empty
+    end
+
     it "validates that the field_name is present" do
       subject.field_name = nil
       subject.valid?

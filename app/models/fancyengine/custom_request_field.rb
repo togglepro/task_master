@@ -25,6 +25,8 @@ module Fancyengine
 
     validates :description, length: { maximum: 300 }
 
+    validates :field_name, length: { maximum: 30 }
+
     def _initialize_required
       self.required = false if self.required.nil?
     end
