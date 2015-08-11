@@ -1,6 +1,6 @@
-require "fancyengine/engine"
+require "task_engine/engine"
 
-module Fancyengine
+module TaskEngine
   mattr_accessor :key
   mattr_accessor :secret
 end

@@ -1,4 +1,4 @@
-module Fancyengine
+module TaskEngine
   class ApplicationController < ActionController::Base
   end
 end

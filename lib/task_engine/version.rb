@@ -1,3 +1,3 @@
-module Fancyengine
+module TaskEngine
   VERSION = "0.0.1"
 end

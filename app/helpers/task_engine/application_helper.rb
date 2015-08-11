@@ -1,4 +1,4 @@
-module Fancyengine
+module TaskEngine
   module ApplicationHelper
   end
 end

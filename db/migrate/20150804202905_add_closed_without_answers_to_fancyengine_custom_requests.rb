@@ -1,4 +1,4 @@
-class AddClosedWithoutAnswersToFancyengineCustomRequests < ActiveRecord::Migration
+class AddClosedWithoutAnswersToTaskEngineCustomRequests < ActiveRecord::Migration
   def change
     add_column :fancyengine_custom_requests, :closed_without_answers, :boolean, default: false
 

@@ -1,4 +1,4 @@
-class CreateFancyengineCustomRequests < ActiveRecord::Migration
+class CreateTaskEngineCustomRequests < ActiveRecord::Migration
   def change
     create_table :fancyengine_custom_requests do |t|
       t.string :title

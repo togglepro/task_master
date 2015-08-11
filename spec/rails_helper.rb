@@ -7,8 +7,8 @@ require 'rspec/rails'
 require "dotenv"
 Dotenv.load
 
-Fancyengine.key = ENV["KEY"]
-Fancyengine.secret = ENV["SECRET"]
+TaskEngine.key = ENV["KEY"]
+TaskEngine.secret = ENV["SECRET"]
 
 require "factory_girl_rails"
 

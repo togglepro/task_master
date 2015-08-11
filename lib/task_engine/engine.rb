@@ -1,6 +1,6 @@
-module Fancyengine
+module TaskEngine
   class Engine < ::Rails::Engine
-    isolate_namespace Fancyengine
+    isolate_namespace TaskEngine
 
     config.generators do |g|
       g.test_framework :rspec

@@ -1,4 +1,4 @@
-module Fancyengine
+module TaskEngine
   class CustomRequestField
     include ActiveModel::Model
 

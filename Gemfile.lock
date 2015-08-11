@@ -10,7 +10,7 @@ GIT
 PATH
   remote: .
   specs:
-    fancyengine (0.0.1)
+    task_engine (0.0.1)
       rails (~> 4.2.3)
 
 GEM
@@ -62,7 +62,7 @@ GEM
     factory_girl_rails (4.5.0)
       factory_girl (~> 4.5.0)
       railties (>= 3.0.0)
-    globalid (0.3.5)
+    globalid (0.3.6)
       activesupport (>= 4.1.0)
     i18n (0.7.0)
     json (1.8.3)
@@ -142,11 +142,11 @@ PLATFORMS
 DEPENDENCIES
   dotenv (~> 2.0)
   factory_girl_rails (~> 4.5)
-  fancyengine!
   fancyhands-ruby!
   pg
   rspec-rails (>= 3.3.3)
   spring (~> 1.3)
+  task_engine!
   test_after_commit
 
 BUNDLED WITH

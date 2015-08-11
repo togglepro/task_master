@@ -1,4 +1,4 @@
-module Fancyengine
+module TaskEngine
   RSpec.describe CustomRequest do
 
     def expect_custom_request_to_post_to_fancyhands(request, response = JSON.parse(File.read(File.expand_path("../../../fixtures/custom_requests/response.json", __FILE__))))
@@ -51,10 +51,10 @@ module Fancyengine
     end
 
     it "validates that each custom_field is valid" do
-      @request.custom_fields = [FactoryGirl.build(:fancyengine_custom_request_field)]
+      @request.custom_fields = [FactoryGirl.build(:task_engine_custom_request_field)]
       @request.valid?
       expect(@request.errors[:custom_fields]).to be_empty
-      @request.custom_fields = [FactoryGirl.build(:fancyengine_custom_request_field_invalid)]
+      @request.custom_fields = [FactoryGirl.build(:task_engine_custom_request_field_invalid)]
       @request.valid?
       expect(@request.errors[:custom_fields]).not_to be_empty
     end
@@ -114,12 +114,12 @@ module Fancyengine
     end
 
     it "has a factory that can build a valid instance" do
-      @request = FactoryGirl.build(:fancyengine_custom_request)
+      @request = FactoryGirl.build(:task_engine_custom_request)
       expect(@request).to be_valid
     end
 
     it "creates the request in fancy hands after commit and sets the key and other attributes" do
-      @request = FactoryGirl.build(:fancyengine_custom_request)
+      @request = FactoryGirl.build(:task_engine_custom_request)
 
       response = expect_custom_request_to_post_to_fancyhands(@request)
 
@@ -138,7 +138,7 @@ module Fancyengine
     end
 
     it "updates the closed_without_answers flag correctly" do
-      @request = FactoryGirl.build(:fancyengine_custom_request)
+      @request = FactoryGirl.build(:task_engine_custom_request)
       response = expect_custom_request_to_post_to_fancyhands(@request, { "numeric_status" => 20, "custom_fields" => [{ "field_name" => "example_field", "answer" => "" }], "key" => "ABCD" })
 
       @request.save!
@@ -147,7 +147,7 @@ module Fancyengine
     end
 
     it "raises a standard error if the last response key is blank" do
-      @request = FactoryGirl.build(:fancyengine_custom_request)
+      @request = FactoryGirl.build(:task_engine_custom_request)
 
       response = expect_custom_request_to_post_to_fancyhands(@request, { key: "" })
 
@@ -202,7 +202,7 @@ module Fancyengine
     end
 
     it "updates the answers to nil when it saves" do
-      @request = FactoryGirl.build(:fancyengine_custom_request)
+      @request = FactoryGirl.build(:task_engine_custom_request)
       expect_custom_request_to_post_to_fancyhands(@request)
       @request.save!
       expected_answers = { "person_sounds_like" => "walrus" }
@@ -212,7 +212,7 @@ module Fancyengine
     # This has been tested against the api, but I went to a stubbed
     # test for now to keep the test suite quick.
     it "has a method to trigger a callback" do
-      @request = FactoryGirl.build(:fancyengine_custom_request, key: "ABCD")
+      @request = FactoryGirl.build(:task_engine_custom_request, key: "ABCD")
       client = Client.new
       fancyhands_ruby_client_request = double(FancyHands::Request)
       expect(Client).to receive(:new).and_return(client)

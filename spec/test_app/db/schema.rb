@@ -11,12 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150805132442) do
+ActiveRecord::Schema.define(version: 20150811121257) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "fancyengine_custom_requests", force: :cascade do |t|
+  create_table "managers", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "task_engine_custom_requests", force: :cascade do |t|
     t.string   "title"
     t.text     "description",                            null: false
     t.text     "custom_fields",                          null: false
@@ -39,11 +44,6 @@ ActiveRecord::Schema.define(version: 20150805132442) do
     t.datetime "fancyhands_closed_at"
   end
 
-  add_index "fancyengine_custom_requests", ["requestor_id", "requestor_type"], name: "idx_fcr_ri_rt", using: :btree
-
-  create_table "managers", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
+  add_index "task_engine_custom_requests", ["requestor_id", "requestor_type"], name: "idx_fcr_ri_rt", using: :btree
 
 end

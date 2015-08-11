@@ -1,4 +1,4 @@
-module Fancyengine
+module TaskEngine
   RSpec.describe WebhookController do
     describe "POST #create" do
       before do
@@ -8,7 +8,7 @@ module Fancyengine
       it "finds the related resource and adds the response to its responses" do
         fancyhands_response = JSON.parse(File.read(File.expand_path("../../../fixtures/custom_requests/response.json", __FILE__)))
         key = fancyhands_response["key"]
-        custom_request = FactoryGirl.build(:fancyengine_custom_request, key: key)
+        custom_request = FactoryGirl.build(:task_engine_custom_request, key: key)
         expect(custom_request).to receive(:post_to_fancyhands)
         custom_request.save!
 

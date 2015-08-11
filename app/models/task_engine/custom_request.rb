@@ -1,4 +1,4 @@
-module Fancyengine
+module TaskEngine
   class CustomRequest < ActiveRecord::Base
     STATUSES = {
       1 => "NEW",
