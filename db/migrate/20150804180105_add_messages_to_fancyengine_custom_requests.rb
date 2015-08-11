@@ -1,4 +1,4 @@
-class AddMessagesToTaskEngineCustomRequests < ActiveRecord::Migration
+class AddMessagesToTaskMasterCustomRequests < ActiveRecord::Migration
   def change
     unless column_exists?(:fancyengine_custom_requests, :messages)
       add_column :fancyengine_custom_requests, :messages, :text, default: "[]"

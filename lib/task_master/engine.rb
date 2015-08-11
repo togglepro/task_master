@@ -1,6 +1,6 @@
-module TaskEngine
+module TaskMaster
   class Engine < ::Rails::Engine
-    isolate_namespace TaskEngine
+    isolate_namespace TaskMaster
 
     config.generators do |g|
       g.test_framework :rspec

@@ -1,11 +1,11 @@
-module TaskEngine
+module TaskMaster
   class Client
     extend Forwardable
     def_delegators :@client, :request
 
-    def initialize(key = TaskEngine.key, secret = TaskEngine.secret)
+    def initialize(key = TaskMaster.key, secret = TaskMaster.secret)
       unless key.present? && secret.present?
-        raise ArgumentError, "Credentials are not configured. Set TaskEngine.key and TaskEngine.secret with your Fancy Hands credentials."
+        raise ArgumentError, "Credentials are not configured. Set TaskMaster.key and TaskMaster.secret with your Fancy Hands credentials."
       end
       @client = FancyHands::V1::Client.new(key, secret)
     end

@@ -1,15 +1,15 @@
 $:.push File.expand_path("../lib", __FILE__)
 
 # Maintain your gem's version:
-require "task_engine/version"
+require "task_master/version"
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
-  s.name        = "task_engine"
-  s.version     = TaskEngine::VERSION
+  s.name        = "task_master"
+  s.version     = TaskMaster::VERSION
   s.authors     = ["Sean Devine"]
   s.email       = ["barelyknown@icloud.com"]
-  s.homepage    = "http://www.github.com/togglepro/task_engine"
+  s.homepage    = "http://www.github.com/togglepro/task_master"
   s.summary     = "A Rails engine that makes it easy to outsource manual tasks using the Fancy Hands API."
   s.description = s.summary
   s.license     = "MIT"

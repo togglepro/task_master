@@ -1,4 +1,4 @@
-module TaskEngine
+module TaskMaster
   class WebhookController < ApplicationController
 
     def create

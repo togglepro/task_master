@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-  mount TaskEngine::Engine => "/task_engine"
+  mount TaskMaster::Engine => "/task_master"
 end

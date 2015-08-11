@@ -1,3 +1,3 @@
-TaskEngine::Engine.routes.draw do
+TaskMaster::Engine.routes.draw do
   post "webhook", to: "webhook#create"
 end

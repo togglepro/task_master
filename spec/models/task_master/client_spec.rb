@@ -1,4 +1,4 @@
-RSpec.describe TaskEngine::Client do
+RSpec.describe TaskMaster::Client do
 
   context "when the key and secret are not configured" do
     it "raises a credentials not available error" do

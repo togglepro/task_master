@@ -1,7 +1,7 @@
 RSpec.describe Manager do
   it "has many custom requests" do
     manager = Manager.create
-    custom_request = FactoryGirl.build(:task_engine_custom_request, requestor: manager)
+    custom_request = FactoryGirl.build(:task_master_custom_request, requestor: manager)
     expect(custom_request).to receive(:post_to_fancyhands)
     custom_request.save!
     manager.reload

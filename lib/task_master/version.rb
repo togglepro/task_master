@@ -1,3 +1,3 @@
-module TaskEngine
+module TaskMaster
   VERSION = "0.0.1"
 end

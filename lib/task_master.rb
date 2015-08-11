@@ -1,6 +1,6 @@
-require "task_engine/engine"
+require "task_master/engine"
 
-module TaskEngine
+module TaskMaster
   mattr_accessor :key
   mattr_accessor :secret
 end

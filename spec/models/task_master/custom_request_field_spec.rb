@@ -1,4 +1,4 @@
-module TaskEngine
+module TaskMaster
   RSpec.describe CustomRequestField do
 
     it "has a type attribute" do
@@ -102,7 +102,7 @@ module TaskEngine
     end
 
     it "can serialize into a hash" do
-      subject = FactoryGirl.build(:task_engine_custom_request_field)
+      subject = FactoryGirl.build(:task_master_custom_request_field)
       expect(subject.to_hash).to eq({
         type: subject.type,
         label: subject.label,
