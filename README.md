@@ -13,6 +13,7 @@ You can learn more about Fancy Hands at [http://www.fancyhands.com]() and about 
 ### Why was TaskMaster created?
 
 TaskMaster was created for three main reasons:
+
 1. To provide an easy way to define and persist Fancy Hands requests.
 2. To handle the outbound integration to create the requests using the Fancy Hands API.
 3. To handle the inbound integration to update the requests using Fancy Hands webhooks.
