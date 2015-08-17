@@ -1,3 +1,5 @@
+require "fancyhands"
+
 module TaskMaster
   class Client
     extend Forwardable
