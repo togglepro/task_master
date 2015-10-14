@@ -4,9 +4,11 @@ module TaskMaster
 
     DEFAULT_ATTRIBUTES = { required: false }
 
-    VALID_TYPES = %w(text textarea tel number email money date datetime-local bool)
+    VALID_TYPES = %w(text textarea tel number email money date datetime-local bool checkbox radio)
 
-    attr_accessor :type, :label, :description, :field_name, :required, :order
+    TYPES_WITH_OPTIONS = %w(checkbox radio)
+
+    attr_accessor :type, :label, :description, :field_name, :required, :order, :options
 
     def initialize(attributes = {})
       attributes = attributes.reverse_merge(DEFAULT_ATTRIBUTES)
@@ -27,6 +29,14 @@ module TaskMaster
 
     validates :field_name, length: { maximum: 30 }
 
+    with_options if: -> { TYPES_WITH_OPTIONS.include?(type) } do
+      validate do |custom_request_field|
+        if Array(options).length < 1
+          errors.add :options, "must not be empty"
+        end
+      end
+    end
+
     def _initialize_required
       self.required = false if self.required.nil?
     end
@@ -36,7 +46,7 @@ module TaskMaster
     end
 
     def to_hash
-      {
+      hash = {
         type: type,
         label: label,
         description: description,
@@ -44,6 +54,10 @@ module TaskMaster
         required: required,
         order: order
       }
+      if TYPES_WITH_OPTIONS.include?(type)
+        hash[:options] = options
+      end
+      hash
     end
   end
 end

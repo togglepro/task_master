@@ -7,7 +7,7 @@ module TaskMaster
     end
 
     it "validates that the type is one of the supported types" do
-      %w(text textarea tel number email money date datetime-local bool).each do |type|
+      %w(text textarea tel number email money date datetime-local bool checkbox radio).each do |type|
         subject.type = type
         subject.valid?
         expect(subject.errors[:type]).to be_empty
@@ -16,6 +16,23 @@ module TaskMaster
         subject.type = type
         subject.valid?
         expect(subject.errors[:type]).to include "is not included in the list"
+      end
+    end
+
+    ["checkbox", "radio"].each do |type_with_options|
+      context "when the type is #{type_with_options}" do
+        before do
+          subject.type = type_with_options
+        end
+        it "validates that the options are set if the type is checkbox" do
+          subject.options = nil
+          subject.valid?
+          expect(subject.errors[:options]).to include "must not be empty"
+        end
+        it "includes the options when serialized" do
+          subject.options = ["foo", "bar"]
+          expect(subject.to_hash[:options]).to eq subject.options
+        end
       end
     end
 
